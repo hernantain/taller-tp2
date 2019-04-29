@@ -27,17 +27,17 @@ int main(int argc, char *argv[]) {
 	if (argc != EXACT_ARGS)
 		return COMMAND_LINE_ERROR;
 
-	string mode = argv[MODE_ARG] ;
+	std::string mode = argv[MODE_ARG] ;
 	if (mode == POOL) {
-		unsigned int num_threads = stoi(argv[NUMBER_THREADS]);
-		string script_name, priority, input, outputFile, code;
-		condition_variable cv;
-		mutex m;
+		unsigned int num_threads = std::stoi(argv[NUMBER_THREADS]);
+		std::string script_name, priority, input, outputFile, code;
+		std::condition_variable cv;
+		std::mutex m;
 		Heap h(m, cv);
 		Pool p(num_threads, h, m, cv);
 
-		for (string line; getline(cin, line);) {
-			istringstream lineStream(line);
+		for (std::string line; getline(std::cin, line);) {
+			std::istringstream lineStream(line);
 			getline(lineStream.ignore(1,'('), script_name, ',');
 			getline(lineStream, priority, ',');
 			getline(lineStream.ignore(1,' '), input, ',');
@@ -47,10 +47,10 @@ int main(int argc, char *argv[]) {
 		}
 
 	} else if (mode == INTERPRETER){
-		ifstream file;
+		std::ifstream file;
 
 		file.open(argv[FILE_ARG]);
-		stringstream script;
+		std::stringstream script;
 		script << file.rdbuf();
 
 		Interpreter interpreter(script.str());
