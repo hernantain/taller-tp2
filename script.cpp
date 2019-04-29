@@ -1,8 +1,7 @@
 #include <string>
 #include "script.h"
 
-using namespace std;
 
-Script::Script(string s1, int p, string s2, string s3, 
-	string s4) : script_name(s1), priority(p), input(s2), outputFile(s3), code(s4) { 
+Script::Script(std::string s1, int p, std::string s2, std::string s3, 
+	std::string s4) : script_name(s1), priority(p), input(s2), outputFile(s3), code(s4) { 
 } 

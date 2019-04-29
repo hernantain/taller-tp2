@@ -14,7 +14,6 @@
 #include "pool.h"
 #include "interpreter.h"
 
-using namespace std;
 
 #define INTERPRETER "interprete"
 #define POOL "thread-pool"

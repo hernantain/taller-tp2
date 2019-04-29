@@ -10,16 +10,16 @@
 #include <vector>
 #include "script.h"
 
-using namespace std;
+
 
 //Clase utilizada para interpretar scripts de brainfuck
 class Interpreter {
 	private:
-	vector<char> memory;
-	stack <unsigned int> open_brackets;
-	ofstream output_file;
-	ifstream input_file;
-	string script;
+	std::vector<char> memory;
+	std::stack <unsigned int> open_brackets;
+	std::ofstream output_file;
+	std::ifstream input_file;
+	std::string script;
 	unsigned int mem_idx, script_idx;
 
 	//Inicializa un vector de memoria en 0s.
@@ -59,7 +59,7 @@ class Interpreter {
 	public:
 
 	//Constructor del interprete en modo interprete
-	Interpreter(string commands);
+	Interpreter(std::string commands);
 
 	//Constructor del interprete en modo thread-pool
 	explicit Interpreter(Script s);

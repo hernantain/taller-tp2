@@ -11,7 +11,7 @@
 using namespace std;
 
 
-Interpreter::Interpreter(string commands) {
+Interpreter::Interpreter(std::string commands) {
 	this->initiate_memory();
 	this->script = commands;
 	this->mem_idx = 0;

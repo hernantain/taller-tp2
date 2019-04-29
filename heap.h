@@ -13,7 +13,6 @@
 #include <condition_variable>
 #include "script.h"
 
-using namespace std;
 
 //Clase utilizada sobrecargando el operador '()' para 
 //luego pasarle al heap y que ordene segun prioridad de la clase 'Script'
@@ -27,14 +26,14 @@ public:
 //Contiene una priority queue (STL de c++) y referencias
 //a objjetos mutex y condition variable para el manejo de threading.
 class Heap {
-	priority_queue<Script, vector<Script>, ComparePriority> queue;
-	mutex &m;
-	condition_variable &cond_var;
+	std::priority_queue<Script, std::vector<Script>, ComparePriority> queue;
+	std::mutex &m;
+	std::condition_variable &cond_var;
 
 	public:
 
 	//Constructor
-	Heap(mutex &m, condition_variable &cond_var);
+	Heap(std::mutex &m, std::condition_variable &cond_var);
 
 	//Encola en la queue.
 	void add(Script s);

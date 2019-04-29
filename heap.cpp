@@ -19,14 +19,14 @@ bool ComparePriority::operator()(const Script& s1, const Script& s2) {
 }	
 
 
-Heap::Heap(mutex &m, condition_variable &cond_var) : m(m), cond_var(cond_var) {}
+Heap::Heap(std::mutex &m, std::condition_variable &cond_var) : m(m), cond_var(cond_var) {}
 
 void Heap::add(Script s) {
 	std::unique_lock<std::mutex> lock(m);
 	this->queue.push(s);
-	lock.unlock();
+	//lock.unlock();
     cond_var.notify_one();
-    lock.lock();
+    //lock.lock();
 }
 
 bool Heap::empty() {
@@ -34,7 +34,10 @@ bool Heap::empty() {
 }
 
 Script Heap::get_first() {
+	// Notify all tiene que ir aca, igual que el run
 	Script first = this->queue.top();
 	this->queue.pop();
 	return first;
 }
+
+
