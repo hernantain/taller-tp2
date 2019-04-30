@@ -11,7 +11,6 @@
 #include "script.h"
 
 
-
 //Clase utilizada para interpretar scripts de brainfuck
 class Interpreter {
 	private:
@@ -52,9 +51,6 @@ class Interpreter {
 
 	//Vuelve al '[' corrrespondiente
 	void end_while();
-
-
-	bool should_skip(char c);
 
 	//Lee una instruccion de brainfuck y redirecciona su ejecucion a la
 	//funcion correspondiente. Luego aumenta el puntero del script.

@@ -1,14 +1,10 @@
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <queue> 
 #include <vector>
 #include <thread>
-#include <mutex>    
-#include <atomic>          
-#include <condition_variable>
+
 #include "script.h"
 #include "heap.h"
 #include "pool.h"
@@ -32,21 +28,20 @@ int main(int argc, char *argv[]) {
 		unsigned int num_threads = std::stoi(argv[NUMBER_THREADS]);
 		Heap h;
 		Pool p(num_threads, h);
-		std::string tmp = "";
+		std::string program_order = "";
 		for (std::string line; getline(std::cin, line);) {
 			std::size_t found = line.rfind(')');
 			if (found !=std::string::npos) {
 				h.push(Script(line));
-
 			} else {
-				tmp.append(line);
+				program_order.append(line);
 				while (getline(std::cin, line)){
-					if (line.back() == ')') {
-						tmp.append(line);
-						h.push(Script(tmp)); 
+					if (line.back() == ')') {		//Para leer el registro
+						program_order.append(line);	//Completo
+						h.push(Script(program_order)); 	
 						break;
 					}
-					tmp.append(line);
+					program_order.append(line);
 				}
 			}
 		}

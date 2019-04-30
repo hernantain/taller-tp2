@@ -1,13 +1,10 @@
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <queue> 
-#include <vector>
-#include <thread>
 #include <mutex>           
 #include <condition_variable>
+
 #include "script.h"
 #include "heap.h"
 

@@ -9,8 +9,6 @@ class Pool {
 	Heap &queue;
 	std::vector<std::thread> threads;
 	bool run;
-	//std::mutex &m;
-	//std::condition_variable &cond_var;
 
 	public:
 	//Constructor que recibe el tamano del pool

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,9 +5,7 @@
 #include <queue> 
 #include <vector>
 #include <thread>
-#include <mutex>    
-#include <atomic>          
-#include <condition_variable>
+
 #include "heap.h"
 #include "pool.h"
 #include "interpreter.h"
