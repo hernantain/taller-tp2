@@ -17,7 +17,6 @@
 //Clase utilizada sobrecargando el operador '()' para 
 //luego pasarle al heap y que ordene segun prioridad de la clase 'Script'
 class ComparePriority {
-
 public:
 	bool operator()(const Script& s1, const Script& s2);
 };
@@ -26,13 +25,13 @@ public:
 //Contiene una priority queue (STL de c++) y referencias
 //a objjetos mutex y condition variable para el manejo de threading.
 class Heap {
-	std::priority_queue<Script, std::vector<Script>, ComparePriority> protected_queue;
+	std::priority_queue<Script, std::vector<Script>, 
+								ComparePriority> protected_queue;
 	std::mutex m;
 	std::condition_variable cond_var;
 	bool blocked;
 
 	public:
-
 	//Constructor
 	Heap();
 

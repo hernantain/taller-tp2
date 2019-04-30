@@ -17,10 +17,8 @@ class Script {
 	bool is_dummy;
 
 	//Constructor de la clase.
-	Script(std::string &line);
+	explicit Script(std::string &line);
 
-	Script(bool dummy);
-
+	explicit Script(bool dummy);
 };
-
 #endif

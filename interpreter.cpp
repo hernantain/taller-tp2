@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <stack>
@@ -8,8 +8,7 @@
 #include "interpreter.h"
 #include "script.h"
 
-using namespace std;
-
+#define MEMORY_SIZE 150
 
 Interpreter::Interpreter(std::string commands) {
 	this->initiate_memory();
@@ -29,7 +28,7 @@ Interpreter::Interpreter(Script s) {
 
 
 void Interpreter::initiate_memory() {
-	for (int i = 0; i < 50; ++i) {
+	for (int i = 0; i < MEMORY_SIZE; ++i) {
 		this->memory.push_back(0);
 	}
 }
@@ -54,15 +53,15 @@ void Interpreter::print() {
 	if (this->output_file.is_open()) {
 		this->output_file << this->memory[this->mem_idx];
 	} else {
-		cout << this->memory[this->mem_idx];
+		std::cout << this->memory[this->mem_idx];
 	}
 }
 
 void Interpreter::read() {
 	if (this->input_file.is_open()) {
-		this->input_file >> noskipws >> this->memory[this->mem_idx];
+		this->input_file >> std::noskipws >> this->memory[this->mem_idx];
 	} else { 
-		cin >> noskipws >> this->memory[this->mem_idx];
+		std::cin >> std::noskipws >> this->memory[this->mem_idx];
 	}
 }
 

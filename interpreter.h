@@ -1,7 +1,7 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
-#include <stdio.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <stack>
@@ -61,16 +61,13 @@ class Interpreter {
 	void process(char c);
 
 	public:
-
 	//Constructor del interprete en modo interprete
-	Interpreter(std::string commands);
+	explicit Interpreter(std::string commands);
 
 	//Constructor del interprete en modo thread-pool
 	explicit Interpreter(Script s);
 
 	//"Lanza" el interprete
 	void execute();
-
 };
-
 #endif

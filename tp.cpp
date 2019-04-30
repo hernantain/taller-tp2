@@ -27,16 +27,29 @@ int main(int argc, char *argv[]) {
 	if (argc != EXACT_ARGS)
 		return COMMAND_LINE_ERROR;
 
-	std::string mode = argv[MODE_ARG] ;
+	std::string mode = argv[MODE_ARG];
 	if (mode == POOL) {
 		unsigned int num_threads = std::stoi(argv[NUMBER_THREADS]);
 		Heap h;
 		Pool p(num_threads, h);
+		std::string tmp = "";
 		for (std::string line; getline(std::cin, line);) {
-			h.push(Script(line)); 
+			std::size_t found = line.rfind(')');
+			if (found !=std::string::npos) {
+				h.push(Script(line));
+
+			} else {
+				tmp.append(line);
+				while (getline(std::cin, line)){
+					if (line.back() == ')') {
+						tmp.append(line);
+						h.push(Script(tmp)); 
+						break;
+					}
+					tmp.append(line);
+				}
+			}
 		}
-
-
 	} else if (mode == INTERPRETER){
 		std::ifstream file(argv[FILE_ARG]);
 		std::stringstream script;
@@ -46,5 +59,4 @@ int main(int argc, char *argv[]) {
 	}
 
 	return 0;
-
 }

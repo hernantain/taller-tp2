@@ -11,8 +11,6 @@
 #include "script.h"
 #include "heap.h"
 
-using namespace std;
-
 
 bool ComparePriority::operator()(const Script& s1, const Script& s2) {
 	return s1.priority < s2.priority;
@@ -58,10 +56,3 @@ void Heap::unblock(){
 	this->blocked = false;
 	this->cond_var.notify_all();
 }
-
-
-/*
-Heap::~Heap() {
-	this->blocked = false;
-	this->cond_var.notify_all();
-}*/

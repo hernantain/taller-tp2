@@ -20,20 +20,15 @@ Pool::Pool(int size, Heap &heap) : size_pool(size), queue(heap) {
 		this->threads.push_back(std::thread(&Pool::execute, this));
 	}
 }
-
 	
 void Pool::execute() {
 	while (this->run) {
 		Script s = this->queue.pop();
 		if (s.is_dummy) {
-			std::cout << "Pasa por el dummy" << std::endl;
 			break;
 		}
 		Interpreter interpreter(s);
 		interpreter.execute();
-
-		//std::cout << "Se queda aca " << std::endl;
-
 	}
 }
 
