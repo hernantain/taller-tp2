@@ -130,10 +130,3 @@ void Interpreter::execute() {
 	}
 }
 
-Interpreter::~Interpreter(){
-	if (this->input_file.is_open()) 
-		this->input_file.close();
-	if (this->output_file.is_open()) 
-		this->output_file.close();
-}
-

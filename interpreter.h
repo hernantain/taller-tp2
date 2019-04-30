@@ -15,6 +15,7 @@
 //Clase utilizada para interpretar scripts de brainfuck
 class Interpreter {
 	private:
+	int ignore_counter;
 	std::vector<char> memory;
 	std::stack <unsigned int> open_brackets;
 	std::ofstream output_file;
@@ -52,6 +53,9 @@ class Interpreter {
 	//Vuelve al '[' corrrespondiente
 	void end_while();
 
+
+	bool should_skip(char c);
+
 	//Lee una instruccion de brainfuck y redirecciona su ejecucion a la
 	//funcion correspondiente. Luego aumenta el puntero del script.
 	void process(char c);
@@ -67,8 +71,6 @@ class Interpreter {
 	//"Lanza" el interprete
 	void execute();
 
-	//Destructor
-	~Interpreter();
 };
 
 #endif

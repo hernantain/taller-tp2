@@ -30,29 +30,17 @@ int main(int argc, char *argv[]) {
 	std::string mode = argv[MODE_ARG] ;
 	if (mode == POOL) {
 		unsigned int num_threads = std::stoi(argv[NUMBER_THREADS]);
-		std::string script_name, priority, input, outputFile, code;
-		std::condition_variable cv;
-		std::mutex m;
-		Heap h(m, cv);
-		Pool p(num_threads, h, m, cv);
-
+		Heap h;
+		Pool p(num_threads, h);
 		for (std::string line; getline(std::cin, line);) {
-			std::istringstream lineStream(line);
-			getline(lineStream.ignore(1,'('), script_name, ',');
-			getline(lineStream, priority, ',');
-			getline(lineStream.ignore(1,' '), input, ',');
-			getline(lineStream.ignore(1,' '), outputFile, ',');
-			getline(lineStream.ignore(1,','), code, ')');
-			h.add(Script(script_name, stoi(priority), input, outputFile, code)); 
+			h.push(Script(line)); 
 		}
 
-	} else if (mode == INTERPRETER){
-		std::ifstream file;
 
-		file.open(argv[FILE_ARG]);
+	} else if (mode == INTERPRETER){
+		std::ifstream file(argv[FILE_ARG]);
 		std::stringstream script;
 		script << file.rdbuf();
-
 		Interpreter interpreter(script.str());
 		interpreter.execute();
 	}

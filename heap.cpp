@@ -19,25 +19,49 @@ bool ComparePriority::operator()(const Script& s1, const Script& s2) {
 }	
 
 
-Heap::Heap(std::mutex &m, std::condition_variable &cond_var) : m(m), cond_var(cond_var) {}
+Heap::Heap() {
+	this->blocked = true;
+}
 
-void Heap::add(Script s) {
-	std::unique_lock<std::mutex> lock(m);
-	this->queue.push(s);
-	//lock.unlock();
-    cond_var.notify_one();
-    //lock.lock();
+void Heap::push(Script s) {
+	std::unique_lock<std::mutex> lock(this->m);
+	
+	this->protected_queue.push(s);
+    
+    this->cond_var.notify_one();
 }
 
 bool Heap::empty() {
-	return queue.empty();
+	std::unique_lock<std::mutex> lock(this->m);
+	return protected_queue.empty();
 }
 
-Script Heap::get_first() {
-	// Notify all tiene que ir aca, igual que el run
-	Script first = this->queue.top();
-	this->queue.pop();
+Script Heap::pop() {
+	std::unique_lock<std::mutex> lock(this->m);
+	while (this->blocked) 
+		this->cond_var.wait(lock);
+	
+	
+	if (this->protected_queue.empty()) {
+		Script dummy(true);
+		return dummy;
+	}
+
+	Script first = this->protected_queue.top();
+
+	this->protected_queue.pop();
+	
 	return first;
 }
 
+void Heap::unblock(){
+	this->blocked = false;
+	this->cond_var.notify_all();
+}
 
+
+/*
+Heap::~Heap() {
+	this->blocked = false;
+	this->cond_var.notify_all();
+}*/

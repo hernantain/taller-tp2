@@ -26,24 +26,29 @@ public:
 //Contiene una priority queue (STL de c++) y referencias
 //a objjetos mutex y condition variable para el manejo de threading.
 class Heap {
-	std::priority_queue<Script, std::vector<Script>, ComparePriority> queue;
-	std::mutex &m;
-	std::condition_variable &cond_var;
+	std::priority_queue<Script, std::vector<Script>, ComparePriority> protected_queue;
+	std::mutex m;
+	std::condition_variable cond_var;
+	bool blocked;
 
 	public:
 
 	//Constructor
-	Heap(std::mutex &m, std::condition_variable &cond_var);
+	Heap();
 
 	//Encola en la queue.
-	void add(Script s);
+	void push(Script s);
+
+	void unblock();
 
 	//Devuelve true en caso de encontrarse vacia la queue.
 	//False en caso contrario.
 	bool empty();
 
 	//Desencola de la queue.
-	Script get_first();
+	Script pop();
+
+	//~Heap();
 };
 
 #endif

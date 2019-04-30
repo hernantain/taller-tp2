@@ -1,7 +1,23 @@
 #include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include "script.h"
 
 
-Script::Script(std::string s1, int p, std::string s2, std::string s3, 
-	std::string s4) : script_name(s1), priority(p), input(s2), outputFile(s3), code(s4) { 
-} 
+
+Script::Script(std::string &line) {
+	std::string priority_string;
+	std::istringstream lineStream(line);
+	std::getline(lineStream.ignore(1,'('), this->script_name, ',');
+	std::getline(lineStream, priority_string, ',');
+	this->priority = std::stoi(priority_string);
+	std::getline(lineStream.ignore(1,' '), this->input, ',');
+	std::getline(lineStream.ignore(1,' '), this->outputFile, ',');
+	std::getline(lineStream.ignore(1,','), this->code, ')');
+	this->is_dummy = false;
+}
+
+Script::Script(bool dummy) {
+	this->is_dummy = true;
+}

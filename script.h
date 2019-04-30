@@ -14,10 +14,12 @@ class Script {
 	std::string input;
 	std::string outputFile;
 	std::string code;
+	bool is_dummy;
 
 	//Constructor de la clase.
-	Script(std::string s1, int p, std::string s2, std::string s3,
-												 std::string s4);
+	Script(std::string &line);
+
+	Script(bool dummy);
 
 };
 
