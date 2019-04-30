@@ -26,11 +26,6 @@ void Heap::push(Script s) {
     this->cond_var.notify_one();
 }
 
-bool Heap::empty() {
-	std::unique_lock<std::mutex> lock(this->m);
-	return protected_queue.empty();
-}
-
 Script Heap::pop() {
 	std::unique_lock<std::mutex> lock(this->m);
 	while (this->blocked) 

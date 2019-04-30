@@ -10,28 +10,22 @@
 #include "script.h"
 
 #define MEMORY_SIZE 150
+#define ZERO 0
 
-Interpreter::Interpreter(std::string commands) {
-	this->initiate_memory();
-	this->script = commands;
-	this->mem_idx = 0;
-	this->script_idx = 0;
+
+Interpreter::Interpreter(std::string &commands) : memory(MEMORY_SIZE, ZERO),
+												  script(commands) {
+	this->mem_idx = ZERO;
+	this->script_idx = ZERO;
 }
 
-Interpreter::Interpreter(Script s) {
-	this->initiate_memory();
-	this->script = s.code;
-	this->mem_idx = 0;
-	this->script_idx = 0;
+
+Interpreter::Interpreter(Script &s) : memory(MEMORY_SIZE, ZERO), 
+									  script(s.code) {
+	this->mem_idx = ZERO;
+	this->script_idx = ZERO;
 	this->input_file.open(s.input);
 	this->output_file.open(s.outputFile);
-}
-
-
-void Interpreter::initiate_memory() {
-	for (int i = 0; i < MEMORY_SIZE; ++i) {
-		this->memory.push_back(0);
-	}
 }
 
 void Interpreter::decrement_pointer() {
@@ -79,7 +73,7 @@ void Interpreter::search_close_bracket() {
 }
 
 void Interpreter::start_while() {
-	if (this->memory[this->mem_idx] == 0) {
+	if (this->memory[this->mem_idx] == ZERO) {
 		this->search_close_bracket();
 	} else {
 		this->open_brackets.push(this->script_idx); 

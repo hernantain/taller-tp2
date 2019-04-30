@@ -38,10 +38,6 @@ class Heap {
 
 	void unblock();
 
-	//Devuelve true en caso de encontrarse vacia la queue.
-	//False en caso contrario.
-	bool empty();
-
 	//Desencola de la queue.
 	Script pop();
 };

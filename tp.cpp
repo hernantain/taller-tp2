@@ -49,7 +49,8 @@ int main(int argc, char *argv[]) {
 		std::ifstream file(argv[FILE_ARG]);
 		std::stringstream script;
 		script << file.rdbuf();
-		Interpreter interpreter(script.str());
+		std::string commands = script.str();
+		Interpreter interpreter(commands);
 		interpreter.execute();
 	}
 

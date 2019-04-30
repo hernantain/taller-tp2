@@ -22,9 +22,6 @@ class Interpreter {
 	std::string script;
 	unsigned int mem_idx, script_idx;
 
-	//Inicializa un vector de memoria en 0s.
-	void initiate_memory();
-
 	//Mueve el puntero una posicion menos (izq)
 	void decrement_pointer();
 
@@ -58,10 +55,10 @@ class Interpreter {
 
 	public:
 	//Constructor del interprete en modo interprete
-	explicit Interpreter(std::string commands);
+	explicit Interpreter(std::string &commands);
 
 	//Constructor del interprete en modo thread-pool
-	explicit Interpreter(Script s);
+	explicit Interpreter(Script &s);
 
 	//"Lanza" el interprete
 	void execute();
